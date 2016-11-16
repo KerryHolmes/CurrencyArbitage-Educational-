@@ -21,18 +21,18 @@ int main(int argc, char* argv[])
    };
 
    edge rate[]{
-       exchanges.add_edge(exchanges[0],exchanges[1],0.197),
-       exchanges.add_edge(exchanges[0],exchanges[2],0.197),
-       exchanges.add_edge(exchanges[0],exchanges[3],0.197),
-       exchanges.add_edge(exchanges[0],exchanges[4],0.197),
-       exchanges.add_edge(exchanges[0],exchanges[5],0.197),
-       exchanges.add_edge(exchanges[0],exchanges[6],0.197),
-       exchanges.add_edge(exchanges[1],exchanges[0],0.197),
-       exchanges.add_edge(exchanges[1],exchanges[2],0.197),
-       exchanges.add_edge(exchanges[1],exchanges[3],0.197),
-       exchanges.add_edge(exchanges[1],exchanges[4],0.197),
-       exchanges.add_edge(exchanges[1],exchanges[5],0.197),
-       exchanges.add_edge(exchanges[1],exchanges[6],0.197),
+       exchanges.add_edge(currency[0],currency[1],0.197),
+       exchanges.add_edge(currency[0],currency[2],0.197),
+       exchanges.add_edge(currency[0],currency[3],0.197),
+       exchanges.add_edge(currency[0],currency[4],0.197),
+       exchanges.add_edge(currency[0],currency[5],0.197),
+       exchanges.add_edge(currency[0],currency[6],0.197),
+       exchanges.add_edge(currency[1],currency[0],0.197),
+       exchanges.add_edge(currency[1],currency[2],0.197),
+       exchanges.add_edge(currency[1],currency[3],0.197),
+       exchanges.add_edge(currency[1],currency[4],0.197),
+       exchanges.add_edge(currency[1],currency[5],0.197),
+       exchanges.add_edge(currency[1],currency[6],0.197),
 
    }
 
