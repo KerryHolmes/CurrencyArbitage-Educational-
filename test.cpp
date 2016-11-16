@@ -34,6 +34,6 @@ int main(int argc, char* argv[])
        exchanges.add_edge(currency[1],currency[5],0.197),
        exchanges.add_edge(currency[1],currency[6],0.197),
 
-   }
+   };
 
 }
