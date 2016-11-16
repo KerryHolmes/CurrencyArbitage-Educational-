@@ -18,4 +18,4 @@ add_library(graph
   queue.cpp
 )
 
-add_executable(currency arbitage.cpp)
+add_executable(currency test.cpp)
