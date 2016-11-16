@@ -3,15 +3,15 @@
 #include <string>
 #include <cassert>
 
-using graph = digraph<std::string,double>;
-using vertex = vertex_t;
-using edge = edge_t;
+using graph = origin::digraph<std::string,double>;
+using vertex = origin::vertex_t;
+using edge = origin::edge_t;
 
 int main(int argc, char* argv[])
 {
 
    graph exchanges;
-   vertext currency[]{
+   vertex currency[]{
        exchanges.add_vertex("currency1"),
        exchanges.add_vertex("currency2"),
        exchanges.add_vertex("currency3"),
