@@ -26,13 +26,11 @@ int main(int argc, char* argv[])
        exchanges.add_edge(currency[0],currency[3],0.197),
        exchanges.add_edge(currency[0],currency[4],0.197),
        exchanges.add_edge(currency[0],currency[5],0.197),
-       exchanges.add_edge(currency[0],currency[6],0.197),
        exchanges.add_edge(currency[1],currency[0],0.197),
        exchanges.add_edge(currency[1],currency[2],0.197),
        exchanges.add_edge(currency[1],currency[3],0.197),
        exchanges.add_edge(currency[1],currency[4],0.197),
-       exchanges.add_edge(currency[1],currency[5],0.197),
-       exchanges.add_edge(currency[1],currency[6],0.197),
+       exchanges.add_edge(currency[1],currency[5],0.197)
 
    };
 
