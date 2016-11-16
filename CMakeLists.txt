@@ -2,7 +2,7 @@
 # All rights reserved
 
 cmake_minimum_required(VERSION 3.0)
-project(graph CXX)
+project(currency CXX)
 
 enable_testing()
 
