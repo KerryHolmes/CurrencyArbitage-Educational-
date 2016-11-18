@@ -24,9 +24,9 @@ struct currency_arbitrage
 		auto paren = origin::vertex_label(parens);
 
 		for(vertex_t v : graph.vertices())
-			parent(v) = v;
+			 parent(v) = v;
 
-    for(edge e : graph.edges_)
+    for(auto e : graph.edges())
 			graph.weight(e) = -1 * (std::log(graph.weight(e)));
 
     BFSP(distance, paren);
@@ -47,7 +47,7 @@ void BFSP(Lable1 distance, Lable2 paren)
 {
 	for (int i = 1; i < graph.num_vertices(); ++i)
 	{
-		for (edge e : graph.edges_())
+		for (auto e : graph.edges())
 		{
 			relax(graph.source(e), graph.target(e), e);
 		}
