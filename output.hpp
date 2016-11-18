@@ -38,7 +38,7 @@ struct print_digraph
   }
 
   void print_edge(edge_t e) {
-    os << graph.source(e) << " -> " << graph.target(e) << "weight: "
+    os << graph.source(e) << " -> " << graph.target(e) << " weight: "
        << graph.edges_[e].data << '\n';
   }
 
