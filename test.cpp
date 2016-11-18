@@ -3,45 +3,60 @@
 #include <fstream>
 #include <string>
 #include <cassert>
+#include <cmath>
 
+//Currency A -> Currency B = (USD/Currency A) / (USD/Currency B)
+
+//These types are in their own namespace, here the using statement
+//is used to create aliases for these types to make the code 
+//easier to comprehend
 using graph = origin::digraph<std::string,double>;
 using vertex = origin::vertex_t;
 using edge = origin::edge_t;
 
 int main(int argc, char* argv[])
-{
+{  
+   //Open the file stream to read the exchange rates and currencies
    std::ifstream numbers("../excrates.txt");
+
+   //This string is to hold the current line from the file as it is processed
    std::string current;
+
+   //Read in the first line of the file. 
+   //This will contain the number of currencies in the file
+   //This value is stored and used to size the arrays created below
    std::getline(numbers,current);
    int num_records = std::stoi(current);
-
-   double to_USD[num_records] = {0};
-   std::string name[num_records] = {""};
-
-   for(int i = 0; i < num_records; ++i)
-   {
-      std::getline(numbers,current);
-      name[i] = current;
-      std::getline(numbers,current);
-      to_USD[i] = std::stod(current);
-   }
-
+   
+   //Create the graph 
    graph moneyFlow;
-   vertex verticies[num_records];
 
-   for(int i = 0; i < num_records; ++i)
+   double from_USD[num_records+1] = {0};
+   vertex vertices[num_records+1];
+   
+   vertices[0] = moneyFlow.add_vertex("US Dollars");
+   from_USD[0] = 1;
+
+   for(int i = 1; i <= num_records; ++i)
    {
-      verticies[i] = moneyFlow.add_vertex(name[i]);
+      std::getline(numbers,current);
+      vertices[i] = moneyFlow.add_vertex(current);
+      std::getline(numbers,current);
+      from_USD[i] = std::stod(current);
    }
 
-   for(int i = 0; i < moneyFlow.num_verticies(); ++i)
+   for(i = 1; i < moneyFlow.num_verticies(); ++i)
+       moneyFlow.add_edge(vertices[0], vertices[i], from_USD[i]);
+
+   for(i = 1; i < moneyFlow.num_verticies(); ++i)
    {
-       for(int j = 0; j < moneyFloe.num_verticies(); ++j)
-       {
-           if(j != i)
-           {
-               moneyFlow.add_edge(verticies[i], verticies[j], to_USD[i]);
-           }
-       }
+      for(int j = 0; j < moneyFlow.num_verticies(); ++j)
+      {
+          if( i != j)
+          {
+            float exchange = from_USD[j] / from_USD[i];
+            moneyFlow.add_edge(vertices[i], vertices[j], exchange);
+          }
+      }
    }
 }
