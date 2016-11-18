@@ -2,11 +2,10 @@
 #define ARBITAGE_HPP
 
 #include "digraph.hpp"
+#include "output.hpp"
 #include <iostream>
-#include <climits>
+#include <limits>
 #include <cmath>
-
-#define inf = std::numeric_limits<double>::infinity();
 
 template<typename G>
 struct currency_arbitrage
@@ -15,16 +14,38 @@ struct currency_arbitrage
 	using edge = origin::edge_t;
 
 	currency_arbitrage(G& g)
-	:graph(g), distance(graph.num_vertices(), inf), parens(graph.num_vertices())
+	:graph(g), distances(graph.num_vertices(), std::numeric_limits<double>infinity()), parens(graph.num_vertices())
 	{}
+
+template<typename Lable1, typename Lable2>
+void BFSP(Lable1 distance, Lable2 paren)
+{
+	for (int i = 1; i < graph.num_vertices(); ++i)
+	{
+		for (auto e : graph.edges())
+		{
+			relax(graph.source(e), graph.target(e), e, distance, paren);
+		}
+	}
+}
+
+template<typename Lable1, typename Lable2>
+void relax(vertex u, vertex v, edge e, Lable1 distance, Lable2 paren)
+{
+	if (distance(v) > distance(u) + graph.weight(e))
+	{
+		distance(v) = distance(u) + graph.weight(e);
+		paren(v) = u;
+	}
+}
 
 	void operator()()
 	{
 		auto distance = origin::vertex_label(distances);
 		auto paren = origin::vertex_label(parens);
 
-		for(vertex_t v : graph.vertices())
-			 parent(v) = v;
+		for(vertex v : graph.vertices())
+			 paren(v) = v;
 
     for(auto e : graph.edges())
 			graph.weight(e) = -1 * (std::log(graph.weight(e)));
@@ -42,32 +63,10 @@ struct currency_arbitrage
 
 	}
 
-template<typename Lable1, typename Lable2>
-void BFSP(Lable1 distance, Lable2 paren)
-{
-	for (int i = 1; i < graph.num_vertices(); ++i)
-	{
-		for (auto e : graph.edges())
-		{
-			relax(graph.source(e), graph.target(e), e);
-		}
-	}
-}
-
-template<typename Lable1, typename Lable2>
-void relax(vertex u, vertex v, edge e, Lable1 distance, Lable2 paren)
-{
-	if (distance(v) > distance(u) + graph.weight(e))
-	{
-		distance(v) = distance(u) + graph.weight(e);
-		paren(v) = u;
-	}
-}
-
 G graph;
 std::vector<int> distances;
 std::vector<vertex> parens; //Batman doesn't has any :(
 
-}
+};
 
 #endif
