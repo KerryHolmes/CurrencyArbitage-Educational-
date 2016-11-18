@@ -14,7 +14,7 @@ struct currency_arbitrage
 	using edge = origin::edge_t;
 
 	currency_arbitrage(G& g)
-	:graph(g), distances(graph.num_vertices(), std::numeric_limits<double>infinity()), parens(graph.num_vertices())
+	:graph(g), distances(graph.num_vertices(), std::numeric_limits<double>::infinity()), parens(graph.num_vertices())
 	{}
 
 template<typename Lable1, typename Lable2>
