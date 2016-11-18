@@ -60,12 +60,12 @@ int main(int argc, char* argv[])
           }
       }
    }
-
-  //for(edge e : moneyFlow.edges())
-  //{
-    //std::cout << moneyFlow.edges_[e].data << std::endl;
-  //}
+  /*
   graph copy(moneyFlow);
   origin::print_digraph<graph> print(std::cout, copy);
   print();
+  */
+
+  currency_arbitrage<graph> bbff(moneyFlow);
+  bbff();
 }
