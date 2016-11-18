@@ -87,6 +87,10 @@ struct digraph
   using edge_iterator = counted_iterator<edge_t>;
   using edge_range = counted_range<edge_t>;
 
+  digraph(digraph& G)
+  :verts_(G.verts_), edges(G.edges_)
+  {}
+
   // Vertex list
   bool is_null() const;
   std::size_t num_vertices() const;
