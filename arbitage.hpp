@@ -20,6 +20,7 @@ struct currency_arbitrage
 template<typename Lable1, typename Lable2>
 void BFSP(Lable1 distance, Lable2 paren)
 {
+  distance(0) = 0;
 	for (int i = 1; i < graph.num_vertices(); ++i)
 	{
 		for (auto e : graph.edges())
@@ -64,7 +65,7 @@ void relax(vertex u, vertex v, edge e, Lable1 distance, Lable2 paren)
 	}
 
 G graph;
-std::vector<int> distances;
+std::vector<double> distances;
 std::vector<vertex> parens; //Batman doesn't has any :(
 
 };
