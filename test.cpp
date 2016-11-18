@@ -55,7 +55,7 @@ int main(int argc, char* argv[])
       {
           if( i != j)
           {
-            float exchange = from_USD[j] / from_USD[i];
+            double exchange = from_USD[j] / from_USD[i];
             moneyFlow.add_edge(vertices[i], vertices[j], exchange);
           }
       }
