@@ -121,6 +121,7 @@ struct digraph
 
   vertex_t source(edge_t) const;
   vertex_t target(edge_t) const;
+  E weight(edge_t) const;
 
   // Incremental construction
   vertex_t add_vertex();
@@ -314,6 +315,14 @@ vertex_t
 digraph<V, E>::target(edge_t e) const 
 { 
   return edges_[e].target(); 
+}
+
+// In the edge (u, v), returns the weight from u -> v
+template<typename V, typename E>
+E 
+digraph<V, E>::weight(edge_t e) const 
+{ 
+  return edges_[e].data(); 
 }
 
 // Incremental construction

@@ -39,7 +39,7 @@ struct print_digraph
 
   void print_edge(edge_t e) {
     os << graph.source(e) << " -> " << graph.target(e) << " weight: "
-       << graph.edges_[e].data << '\n';
+       << graph.weight(e) << '\n';
   }
 
   std::ostream& os;

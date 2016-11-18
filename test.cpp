@@ -66,6 +66,6 @@ int main(int argc, char* argv[])
     //std::cout << moneyFlow.edges_[e].data << std::endl;
   //}
   graph copy(moneyFlow);
-  origin::print_digraph<copy> print(std::cout, moneyFlow);
+  origin::print_digraph<graph> print(std::cout, copy);
   print();
 }
