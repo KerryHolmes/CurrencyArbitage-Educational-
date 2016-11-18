@@ -1,3 +1,4 @@
+#include "arbitage.hpp"
 #include "digraph.hpp"
 #include "output.hpp"
 #include <iostream>

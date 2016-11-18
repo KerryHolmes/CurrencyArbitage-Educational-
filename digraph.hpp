@@ -87,8 +87,10 @@ struct digraph
   using edge_iterator = counted_iterator<edge_t>;
   using edge_range = counted_range<edge_t>;
 
+  digraph() = default;
+
   digraph(digraph& G)
-  :verts_(G.verts_), edges(G.edges_)
+  :verts_(G.verts_), edges_(G.edges_)
   {}
 
   // Vertex list

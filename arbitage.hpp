@@ -2,6 +2,7 @@
 #define ARBITAGE_HPP
 
 #include "digraph.hpp"
+#include <iostream>
 #include <climits>
 #include <cmath>
 
@@ -19,13 +20,13 @@ struct currency_arbitrage
 
 	void operator()()
 	{
-		auto distance = vertex_label(distances);
-		auto paren = vertex_label(parens);
+		auto distance = origin::vertex_label(distances);
+		auto paren = origin::vertex_label(parens);
 
-		for (vertex_t v : graph.vertices())
+		for(vertex_t v : graph.vertices())
 			parent(v) = v;
 
-    for (edge e : graph.edges_())
+    for(edge e : graph.edges_)
 			graph.weight(e) = -1 * (std::log(graph.weight(e)));
 
     BFSP(distance, paren);
@@ -33,7 +34,7 @@ struct currency_arbitrage
     origin::print_digraph<G> print(std::cout, graph);
     print();
 
-    for(auto elem : distance)
+    for(auto elem : distances)
      std::cout << elem << std::endl;
 
     for(auto elem : parens)
