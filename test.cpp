@@ -61,6 +61,11 @@ int main(int argc, char* argv[])
       }
    }
 
+  //for(edge e : moneyFlow.edges())
+  //{
+    //std::cout << moneyFlow.edges_[e].data << std::endl;
+  //}
+
   print_digraph<graph> print(std::cout, moneyFlow);
   print();
 }
