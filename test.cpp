@@ -1,4 +1,5 @@
 #include "digraph.hpp"
+#include "output.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -45,12 +46,12 @@ int main(int argc, char* argv[])
       from_USD[i] = std::stod(current);
    }
 
-   for(i = 1; i < moneyFlow.num_verticies(); ++i)
+   for(int i = 1; i < moneyFlow.num_vertices(); ++i)
        moneyFlow.add_edge(vertices[0], vertices[i], from_USD[i]);
 
-   for(i = 1; i < moneyFlow.num_verticies(); ++i)
+   for(int i = 1; i < moneyFlow.num_vertices(); ++i)
    {
-      for(int j = 0; j < moneyFlow.num_verticies(); ++j)
+      for(int j = 0; j < moneyFlow.num_vertices(); ++j)
       {
           if( i != j)
           {
@@ -59,4 +60,7 @@ int main(int argc, char* argv[])
           }
       }
    }
+
+  print_digraph<graph> print(std::cout, moneyFlow);
+  print();
 }
