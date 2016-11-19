@@ -20,7 +20,8 @@ struct currency_arbitrage
 	{}
 
 template<typename Lable1, typename Lable2>
-void BFSP(vertex s, Lable1 distance, Lable2 paren)
+void 
+BFSP(vertex s, Lable1 distance, Lable2 paren)
 {
     distance(s) = 0;
 	for (int i = 1; i < graph.num_vertices(); ++i)
@@ -33,7 +34,8 @@ void BFSP(vertex s, Lable1 distance, Lable2 paren)
 }
 
 template<typename Lable1, typename Lable2>
-void relax(vertex u, vertex v, edge e, Lable1 distance, Lable2 paren)
+void 
+relax(vertex u, vertex v, edge e, Lable1 distance, Lable2 paren)
 {
 	if (distance(v) > distance(u) + graph.weight(e))
 	{
@@ -42,30 +44,47 @@ void relax(vertex u, vertex v, edge e, Lable1 distance, Lable2 paren)
 	}
 }
 
+template<typename Lable>
+bool
+check_negative_cycles()
+{
+	for(auto e : graph.edges())
+	 if(distance(graph.target(e)) > distance(graph.source(v)) + graph.weight(e))
+		 return true;
+	return false; 
+}
+
 void operator()()
 {
    auto distance = origin::vertex_label(distances);
    auto paren = origin::vertex_label(parens);
 
     for(auto e : graph.edges())
-			graph.weight(e) = -1 * (std::log(graph.weight(e)));
-
-	auto s = g.add_vertex("Source");
-	for(auto v : graph.vertices())
-	   graph.add_edge(s, v, 0);
+	   graph.weight(e) = -1 * (std::log(graph.weight(e)));
 
     BFSP(s, distance, paren);
     
-    origin::print_digraph<G> print(std::cout, graph);
-    print();
-
-    for(auto elem : distances)
-     std::cout << elem << std::endl;
-
-    for(auto elem : parens)
-     std::cout << elem << std::endl;
-
+	if(check_negative_cycles())
+	{
+       std::cout << "Arbitrage opportunity found!" << std::endl;
+	   std::vector<vertex> cycle;
+	   vertex s = 0;
+	   while(std::find(cycle.begin(),cycle.end(),s) == cycle.end())
+	   {
+		   cycle.push_back(s);
+		   s = paren(s);
+	   }
+	   for(int i = 0; i < cycle.size() ; ++i)
+	     std::cout << cycle[i] << std::endl;
 	}
+	else
+	{
+		std::cout << "There is no opportunity for arbitrage." << std::endl;
+		return;
+	}
+    
+
+}
 
 G graph;
 std::vector<double> distances;
