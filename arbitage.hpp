@@ -89,7 +89,7 @@ operator()()
 
 	   auto cycle = trace_cycle(s, color, paren);
 
-	   std::cout << "The cycle is: "
+	   std::cout << "The cycle is: " << std::endl;
 	   for(int i = 0; i < cycle.size() ; ++i)
 	     std::cout << cycle[i] << std::endl;
 	   std::cout << cycle[0] << std::endl;
