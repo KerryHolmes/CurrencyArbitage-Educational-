@@ -49,7 +49,7 @@ bool
 check_negative_cycles()
 {
 	for(auto e : graph.edges())
-	 if(distance(graph.target(e)) > distance(graph.source(v)) + graph.weight(e))
+	 if(distance(graph.target(e)) > distance(graph.source(e)) + graph.weight(e))
 		 return true;
 	return false; 
 }
@@ -58,6 +58,7 @@ void operator()()
 {
    auto distance = origin::vertex_label(distances);
    auto paren = origin::vertex_label(parens);
+   vertex s = 0;
 
     for(auto e : graph.edges())
 	   graph.weight(e) = -1 * (std::log(graph.weight(e)));
@@ -68,11 +69,14 @@ void operator()()
 	{
        std::cout << "Arbitrage opportunity found!" << std::endl;
 	   std::vector<vertex> cycle;
-	   vertex s = 0;
-	   while(std::find(cycle.begin(),cycle.end(),s) == cycle.end())
+	   std::vector<bool> rainbow(graph.num_vertices(), false);
+	   auto color = vertex_label(rainbow);
+
+	   while(!color(s))
 	   {
 		   cycle.push_back(s);
 		   s = paren(s);
+		   color(s) = true;
 	   }
 	   for(int i = 0; i < cycle.size() ; ++i)
 	     std::cout << cycle[i] << std::endl;
