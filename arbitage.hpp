@@ -15,8 +15,8 @@ struct currency_arbitrage
 
 	currency_arbitrage(G& g)
 	:graph(g), 
-	distances(graph.num_vertices(), std::numeric_limits<double>::infinity()), 
-	parens(graph.num_vertices(), -1)
+	distances(graph.num_vertices()+1, std::numeric_limits<double>::infinity()), 
+	parens(graph.num_vertices()+1, -1)
 	{}
 
 template<typename Lable1, typename Lable2>
@@ -24,7 +24,7 @@ void
 BFSP(vertex s, Lable1 distance, Lable2 paren)
 {
     distance(s) = 0;
-	for (int i = 1; i < graph.num_vertices(); ++i)
+	for (int i = 1; i < graph.num_vertices()-1; ++i)
 	{
 		for (auto e : graph.edges())
 		{
@@ -44,14 +44,14 @@ relax(vertex u, vertex v, edge e, Lable1 distance, Lable2 paren)
 	}
 }
 
-template<typename Label>
-bool
-check_negative_cycles(Label distance)
+template<typename Lable1, typename Lable2, typename Lable3>
+std::vector<vertex>
+check_negative_cycles(Lable1 distance, Lable2 color, Lable3 paren)
 {
 	for(auto e : graph.edges())
 	 if(distance(graph.target(e)) > distance(graph.source(e)) + graph.weight(e))
-		 return true;
-	return false; 
+		 return trace_cycle( graph.target(e),  color, paren);
+	return std::vector<vertex>blank; 
 }
 
 template<typename Lable1, typename Lable2>
@@ -85,14 +85,14 @@ operator()()
 
     BFSP(s, distance, paren);
     
-	if(check_negative_cycles(distance))
-	{
        std::cout << "Arbitrage opportunity found!" << std::endl;
 	   std::vector<int> visited(graph.num_vertices(), 0);
 	   auto color = origin::vertex_label(visited);
 
-	   auto cycle = trace_cycle(s, color, paren);
+	   auto cycle = check_negative_cycles(distance, color, paren);
 
+	   if(cycle.size() > 0)
+	   {
 	   std::cout << "The cycle is: " << std::endl;
 	   for(int i = 0; i < cycle.size() ; ++i)
 	     std::cout << cycle[i] << std::endl;
