@@ -54,7 +54,23 @@ check_negative_cycles(Label distance)
 	return false; 
 }
 
-void operator()()
+template<typename Lable1, typename Lable2>
+std::vector<vertex>
+trace_cycle(vertex s, Lable1 color, Lable2 paren)
+{
+   std::vector<vertex> cycle;
+   while(!color(s))
+	   {
+		   cycle.push_back(s);
+		   color(s) = 1;
+		   s = paren(s);
+	   }
+	   cycle.push_back(s);
+	   return cycle;
+}
+
+std::vector<vertex>
+operator()()
 {
    auto distance = origin::vertex_label(distances);
    auto paren = origin::vertex_label(parens);
@@ -68,23 +84,22 @@ void operator()()
 	if(check_negative_cycles(distance))
 	{
        std::cout << "Arbitrage opportunity found!" << std::endl;
-	   std::vector<vertex> cycle;
-	   std::vector<bool> rainbow(graph.num_vertices(), false);
-	   auto color = origin::vertex_label(rainbow);
+	   std::vector<int> visited(graph.num_vertices(), 0);
+	   auto color = origin::vertex_label(visited);
 
-	   while(!color(s))
-	   {
-		   cycle.push_back(s);
-		   s = paren(s);
-		   color(s) = true;
-	   }
+	   auto cycle = trace_cycle(s, color, paren);
+
+	   std::cout << "The cycle is: "
 	   for(int i = 0; i < cycle.size() ; ++i)
 	     std::cout << cycle[i] << std::endl;
+	   std::cout << cycle[0] << std::endl;
+
+	   return cycle;
 	}
 	else
 	{
 		std::cout << "There is no opportunity for arbitrage." << std::endl;
-		return;
+		return std::vector<vertex>(1,-1);
 	}
     
 
