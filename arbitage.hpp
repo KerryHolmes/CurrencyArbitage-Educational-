@@ -74,7 +74,11 @@ operator()()
 {
    auto distance = origin::vertex_label(distances);
    auto paren = origin::vertex_label(parens);
-   vertex s = 0;
+   auto s = graph.add_vertex("Source");
+
+	for(auto v : graph.vertices())
+	 if(v != s)
+	   graph.add_edge(s, v, 0);
 
     for(auto e : graph.edges())
 	   graph.weight(e) = -1 * (std::log(graph.weight(e)));
@@ -99,7 +103,7 @@ operator()()
 	else
 	{
 		std::cout << "There is no opportunity for arbitrage." << std::endl;
-		return std::vector<vertex>(1,-1);
+		return std::vector<vertex>();
 	}
     
 
