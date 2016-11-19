@@ -44,9 +44,9 @@ relax(vertex u, vertex v, edge e, Lable1 distance, Lable2 paren)
 	}
 }
 
-template<typename Lable>
+template<typename Label>
 bool
-check_negative_cycles()
+check_negative_cycles(Label distance)
 {
 	for(auto e : graph.edges())
 	 if(distance(graph.target(e)) > distance(graph.source(e)) + graph.weight(e))
@@ -65,12 +65,12 @@ void operator()()
 
     BFSP(s, distance, paren);
     
-	if(check_negative_cycles())
+	if(check_negative_cycles(distance))
 	{
        std::cout << "Arbitrage opportunity found!" << std::endl;
 	   std::vector<vertex> cycle;
 	   std::vector<bool> rainbow(graph.num_vertices(), false);
-	   auto color = vertex_label(rainbow);
+	   auto color = origin::vertex_label(rainbow);
 
 	   while(!color(s))
 	   {
