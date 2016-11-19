@@ -14,13 +14,15 @@ struct currency_arbitrage
 	using edge = origin::edge_t;
 
 	currency_arbitrage(G& g)
-	:graph(g), distances(graph.num_vertices(), std::numeric_limits<double>::infinity()), parens(graph.num_vertices())
+	:graph(g), 
+	distances(graph.num_vertices(), std::numeric_limits<double>::infinity()), 
+	parens(graph.num_vertices(), -1)
 	{}
 
 template<typename Lable1, typename Lable2>
-void BFSP(Lable1 distance, Lable2 paren)
+void BFSP(vertex s, Lable1 distance, Lable2 paren)
 {
-  distance(0) = 0;
+    distance(s) = 0;
 	for (int i = 1; i < graph.num_vertices(); ++i)
 	{
 		for (auto e : graph.edges())
@@ -40,19 +42,20 @@ void relax(vertex u, vertex v, edge e, Lable1 distance, Lable2 paren)
 	}
 }
 
-	void operator()()
-	{
-		auto distance = origin::vertex_label(distances);
-		auto paren = origin::vertex_label(parens);
-
-		for(vertex v : graph.vertices())
-			 paren(v) = v;
+void operator()()
+{
+   auto distance = origin::vertex_label(distances);
+   auto paren = origin::vertex_label(parens);
 
     for(auto e : graph.edges())
 			graph.weight(e) = -1 * (std::log(graph.weight(e)));
 
-    BFSP(distance, paren);
+	auto s = g.add_vertex("Source");
+	for(auto v : graph.vertices())
+	   graph.add_edge(s, v, 0);
 
+    BFSP(s, distance, paren);
+    
     origin::print_digraph<G> print(std::cout, graph);
     print();
 
