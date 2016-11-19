@@ -24,7 +24,7 @@ void
 BFSP(vertex s, Lable1 distance, Lable2 paren)
 {
     distance(s) = 0;
-	for (int i = 1; i < graph.num_vertices()-1; ++i)
+	for (int i = 1; i < graph.num_vertices(); ++i)
 	{
 		for (auto e : graph.edges())
 		{
@@ -77,7 +77,7 @@ operator()()
    auto s = graph.add_vertex("Source");
 
     for(auto e : graph.edges())
-	   graph.weight(e) = -1 * (std::log(graph.weight(e)));
+	   graph.weight(e) = -1 * (std::log10(graph.weight(e)));
 
 	for(auto v : graph.vertices())
 	 if(v != s)
@@ -85,7 +85,6 @@ operator()()
 
     BFSP(s, distance, paren);
     
-       std::cout << "Arbitrage opportunity found!" << std::endl;
 	   std::vector<int> visited(graph.num_vertices(), 0);
 	   auto color = origin::vertex_label(visited);
 

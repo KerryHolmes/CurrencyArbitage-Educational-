@@ -70,7 +70,7 @@ int main(int argc, char* argv[])
   currency_arbitrage<graph> bbff(moneyFlow);
   auto cycle = bbff();
 
-  double principle = 5000000.00;
+  double principle = 1.00;
   for(int i = 0; i < cycle.size()-1; ++i)
    {
        auto e = moneyFlow.edge(cycle[i], cycle[i+1]);
