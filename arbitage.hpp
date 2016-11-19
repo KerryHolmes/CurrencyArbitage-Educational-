@@ -76,12 +76,12 @@ operator()()
    auto paren = origin::vertex_label(parens);
    auto s = graph.add_vertex("Source");
 
+    for(auto e : graph.edges())
+	   graph.weight(e) = -1 * (std::log(graph.weight(e)));
+
 	for(auto v : graph.vertices())
 	 if(v != s)
 	   graph.add_edge(s, v, 0);
-
-    for(auto e : graph.edges())
-	   graph.weight(e) = -1 * (std::log(graph.weight(e)));
 
     BFSP(s, distance, paren);
     

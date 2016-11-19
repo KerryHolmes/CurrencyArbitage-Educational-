@@ -73,8 +73,8 @@ int main(int argc, char* argv[])
   double principle = 5000000.00;
   for(int i = 0; i < cycle.size()-1; ++i)
    {
-       auto e = moneyFlow.find_edge(cycle[i], cycle[i+1]);
-       principle *= moneyFlow.wieght(e);
+       auto e = moneyFlow.edge(cycle[i], cycle[i+1]);
+       principle *= moneyFlow.weight(e);
 
        std::cout << principle << std::endl;
    }
