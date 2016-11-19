@@ -68,5 +68,14 @@ int main(int argc, char* argv[])
   */
 
   currency_arbitrage<graph> bbff(moneyFlow);
-  bbff();
+  auto cycle = bbff();
+
+  double principle = 5000000.00;
+  for(int i = 0; i < cycle.size()-1; ++i)
+   {
+       auto e = moneyFlow.find_edge(cycle[i], cycle[i+1]);
+       principle *= moneyFlow.wieght(e);
+
+       std::cout << principle << std::endl;
+   }
 }
