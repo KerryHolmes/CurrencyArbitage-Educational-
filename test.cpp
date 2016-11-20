@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
    //This will contain the number of currencies in the file
    //This value is stored and used to size the arrays created below
    std::getline(numbers,current);
-   int num_records = std::stoi(current);
+   int num_records = 15//std::stoi(current);
    
    //Create the graph 
    graph moneyFlow;

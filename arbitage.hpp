@@ -7,15 +7,15 @@
 #include <limits>
 #include <cmath>
 
-template<typename G>
+template<typename G, typename T = double>
 struct currency_arbitrage
 {
 	using vertex = origin::vertex_t;
 	using edge = origin::edge_t;
 
-	currency_arbitrage(G& g)
+	currency_arbitrage(G& g, T max = 1000000)
 	:graph(g),
-	distances(graph.num_vertices() + 1, std::numeric_limits<double>::infinity()),
+	distances(graph.num_vertices() + 1, max)),
 	parens(graph.num_vertices() + 1, -1)
 	{}
 
@@ -24,6 +24,7 @@ struct currency_arbitrage
 		BFSP(vertex s, Lable1 distance, Lable2 paren)
 	{
 		distance(s) = 0;
+		paren(s) = s;
 		for (int i = 1; i < graph.num_vertices(); ++i)
 		{
 			for (auto e : graph.edges())
@@ -49,7 +50,7 @@ struct currency_arbitrage
 		check_negative_cycles(Lable1 distance, Lable2 color, Lable3 paren)
 	{
 		for (auto e : graph.edges())
-			if (distance(graph.target(e)) < distance(graph.source(e)) + graph.weight(e))
+			if (distance(graph.target(e)) > distance(graph.source(e)) + graph.weight(e))
 				return trace_cycle(graph.target(e), color, paren);
 		return std::vector<vertex>();
 	}
@@ -108,7 +109,7 @@ struct currency_arbitrage
 	}
 
 	G graph;
-	std::vector<double> distances;
+	std::vector<T> distances;
 	std::vector<vertex> parens; //Batman doesn't has any :(
 
 };

@@ -18,7 +18,7 @@ add_library(graph
   queue.cpp
 )
 
-add_executable(network test-bellman.cpp)
+add_executable(network test.cpp)
 
 set(files bellman.hpp bellman.cpp dighraph.hpp test-bellman.cpp)
 
