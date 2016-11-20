@@ -81,7 +81,7 @@ struct BFSSP
 
 	G graph;
     vertex s;
-	std::vector<double> distances;
+	std::vector<int> distances;
 	std::vector<vertex> parents; //Batman doesn't has any :(
 
 };

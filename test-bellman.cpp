@@ -5,11 +5,12 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
+#include <chrono>
 
 //These types are in their own namespace, here the using statement
 //is used to create aliases for these types to make the code 
 //easier to comprehend
-using graph = origin::digraph<std::string,double>;
+using graph = origin::digraph<std::string,int>;
 using vertex = origin::vertex_t;
 using edge = origin::edge_t;
 
@@ -33,7 +34,7 @@ int main(int argc, char* argv[])
    //Create the graph 
    graph network;
 
-   double path[num_records];
+   int path[num_records];
    vertex vertices[num_records];
 
    for(int i = 1; i <= num_records; ++i)
@@ -49,11 +50,14 @@ int main(int argc, char* argv[])
  
   origin::print_digraph<graph> print(std::cout, network);
   print();
-
-
-  BFSSP<graph> bfsp(network, 1);
+  
+  int source = std::rand()%num_records;
+  std::cout << "Source: " << source << std::endl;
+  auto start = std::chrono::system_clock::now();
+  BFSSP<graph> bfsp(network, source);
   auto SSP = bfsp();
-
+  auto stop = std::chrono::system_clock::now();
   origin::print_digraph<graph> print_result(std::cout, SSP);
   print_result();
+  std::cout << n << ' ' << (stop - start).count() << std::endl;
 }
