@@ -13,11 +13,11 @@ struct BFSSP
 	using vertex = origin::vertex_t;
 	using edge = origin::edge_t;
 
-	BFSSP(G& g)
+	BFSSP(G& g, int s)
 	:graph(g),
 	distances(graph.num_vertices(), std::numeric_limits<double>::infinity()),
-	parens(graph.num_vertices(), -1),
-    s(0)
+	parents(graph.num_vertices()),
+    s(s)
 	{}
 
 	template<typename Lable1, typename Lable2>
@@ -25,6 +25,7 @@ struct BFSSP
 	find_path(vertex s, Lable1 distance, Lable2 paren)
 	{
 		distance(s) = 0;
+		paren(s) = s;
 		for (int i = 1; i < graph.num_vertices(); ++i)
 		{
 			for (auto e : graph.edges())
@@ -60,7 +61,7 @@ struct BFSSP
 	operator()()
 	{
 		auto distance = origin::vertex_label(distances);
-		auto paren = origin::vertex_label(parens);
+		auto paren = origin::vertex_label(parents);
 		G result;
 
 		find_path(s, distance, paren);
@@ -81,7 +82,7 @@ struct BFSSP
 	G graph;
     vertex s;
 	std::vector<double> distances;
-	std::vector<vertex> parens; //Batman doesn't has any :(
+	std::vector<vertex> parents; //Batman doesn't has any :(
 
 };
 

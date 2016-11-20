@@ -19,3 +19,9 @@ add_library(graph
 )
 
 add_executable(currency test-bellman.cpp)
+
+set(files bellman.hpp bellman.cpp dighraph.hpp test-bellman.cpp)
+
+add_custom_target(printout
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  COMMAND a2ps -Afill -o- ${files} | ps2pdf - ${CMAKE_BINARY_DIR}/printout.pdf)

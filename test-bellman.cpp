@@ -4,10 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <cassert>
-#include <cmath>
-
-//Currency A -> Currency B = (USD/Currency A) / (USD/Currency B)
+#include <random>
 
 //These types are in their own namespace, here the using statement
 //is used to create aliases for these types to make the code 
@@ -15,6 +12,8 @@
 using graph = origin::digraph<std::string,double>;
 using vertex = origin::vertex_t;
 using edge = origin::edge_t;
+
+std::srand(0);
 
 int main(int argc, char* argv[])
 {  
@@ -33,41 +32,26 @@ int main(int argc, char* argv[])
    //Create the graph 
    graph moneyFlow;
 
-   double from_USD[num_records+1] = {0};
-   vertex vertices[num_records+1];
-   
-   vertices[0] = moneyFlow.add_vertex("US Dollars");
-   from_USD[0] = 1;
+   double path[num_records];
+   vertex vertices[num_records];
 
    for(int i = 1; i <= num_records; ++i)
    {
       std::getline(numbers,current);
       vertices[i] = moneyFlow.add_vertex(current);
-      std::getline(numbers,current);
-      from_USD[i] = 1 / std::stod(current);
    }
 
-   for(int i = 1; i < moneyFlow.num_vertices(); ++i)
-       moneyFlow.add_edge(vertices[0], vertices[i], 1 / from_USD[i]);
-
-   for(int i = 1; i < moneyFlow.num_vertices(); ++i)
-   {
-      for(int j = 0; j < moneyFlow.num_vertices(); ++j)
-      {
-          if( i != j)
-          {
-            double exchange = from_USD[j] / from_USD[i];
-            moneyFlow.add_edge(vertices[i], vertices[j], exchange);
-          }
-      }
-   }
+   for(auto u : graph.verts_)
+      for(auto v : graph.verts_)
+          if( u != v)
+            moneyFlow.add_edge(u, v, std::rand()%10);
  
   origin::print_digraph<graph> print(std::cout, moneyFlow);
   print();
 
 
-  BFSSP<graph> bbff(moneyFlow);
-  auto cycle = bbff();
+  BFSSP<graph> bfsp(moneyFlow);
+  auto SSP = bfsp();
 
   origin::print_digraph<graph> print_result(std::cout, cycle);
   print_result();
