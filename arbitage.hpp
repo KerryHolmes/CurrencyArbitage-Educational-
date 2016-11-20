@@ -51,7 +51,7 @@ check_negative_cycles(Lable1 distance, Lable2 color, Lable3 paren)
 	for(auto e : graph.edges())
 	 if(distance(graph.target(e)) > distance(graph.source(e)) + graph.weight(e))
 		 return trace_cycle( graph.target(e),  color, paren);
-	return std::vector<vertex>blank; 
+	return std::vector<vertex>(); 
 }
 
 template<typename Lable1, typename Lable2>
