@@ -42,10 +42,10 @@ int main(int argc, char* argv[])
       vertices[i] = network.add_vertex(current);
    }
 
-   for(auto u : network.verts_)
-      for(auto v : network.verts_)
+   for(auto u : network.vertices())
+      for(auto v : network.vertices())
           if( u != v)
-            network.add_edge(u, v, std::rand()%10);
+            network.add_edge(u, v, (std::rand()%10)+1);
  
   origin::print_digraph<graph> print(std::cout, network);
   print();

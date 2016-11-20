@@ -371,13 +371,6 @@ digraph<V, E>::add_edge(vertex_t u, vertex_t v)
 }
 
 template<typename V, typename E>
-bool
-digraph<V, E>::operator!=(vertex_t u, vertex_t v)
-{
-  return verts_[u] != verts_[u];
-}
-
-template<typename V, typename E>
 edge_t
 digraph<V, E>::add_edge(vertex_t u, vertex_t v, E const& x)
 {
