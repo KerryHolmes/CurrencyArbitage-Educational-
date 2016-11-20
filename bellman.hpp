@@ -16,7 +16,7 @@ struct BFSSP
 	BFSSP(G& g, int s)
 	:graph(g),
 	distances(graph.num_vertices(), std::numeric_limits<double>::infinity()),
-	parents(graph.num_vertices()),
+	parents(graph.num_vertices(), -1),
     s(s)
 	{}
 
@@ -74,7 +74,7 @@ struct BFSSP
 
         for(auto v : graph.vertices())
            if(v != s)
-            result.add_edge(paren(v), v, distance(v)-distance(paren(v)));
+            result.add_edge(paren(v), v, graph.edge(paren(v), v));
         
         return result;
 	}
