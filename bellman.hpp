@@ -51,7 +51,7 @@ struct BFSSP
 	check_negative_cycles(Lable1 distance, Lable2 paren)
 	{
 		for (auto e : graph.edges())
-			if (distance(graph.target(e)) < distance(graph.source(e)) 
+			if (distance(graph.target(e)) > distance(graph.source(e)) 
                                              + graph.weight(e))
 				return false;
 		return true;
@@ -65,7 +65,7 @@ struct BFSSP
 		G result;
 
 		find_path(s, distance, paren);
-        if(check_negative_cycles(distance, paren))
+        if(!check_negative_cycles(distance, paren))
           return result;
        
         
