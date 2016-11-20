@@ -93,7 +93,7 @@ struct digraph
   :verts_(G.verts_), edges_(G.edges_)
   {}
 
-  digraph(digraph G)
+  digraph(const digraph& G)
   :verts_(G.verts_), edges_(G.edges_)
   {}
 

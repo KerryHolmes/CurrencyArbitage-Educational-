@@ -62,15 +62,13 @@ int main(int argc, char* argv[])
       }
    }
  
-  graph copy(moneyFlow);
-  origin::print_digraph<graph> print(std::cout, copy);
+  origin::print_digraph<graph> print(std::cout, moneyFlow);
   print();
 
 
   BFSSP<graph> bbff(moneyFlow);
   auto cycle = bbff();
 
-  graph copy(cycle);
-  origin::print_digraph<graph> print(std::cout, copy);
+  origin::print_digraph<graph> print(std::cout, cycle);
   print();
 }

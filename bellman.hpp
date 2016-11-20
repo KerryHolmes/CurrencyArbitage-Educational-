@@ -61,14 +61,15 @@ struct BFSSP
 	{
 		auto distance = origin::vertex_label(distances);
 		auto paren = origin::vertex_label(parens);
+		G result;
 
 		find_path(s, distance, paren);
         if(check_negative_cycles(distance, paren))
-          return G;
-        G result;
+          return result;
+       
         
         for(auto v : graph.vertices())
-            result.add_vertex(v);
+            result.add_vertex(graph.verts_(v);
 
         for(auto v : graph.vertices())
            if(v != s)
