@@ -14,9 +14,9 @@ struct currency_arbitrage
 	using edge = origin::edge_t;
 
 	currency_arbitrage(G& g)
-		:graph(g),
-		distances(graph.num_vertices() + 1, std::numeric_limits<double>::infinity()),
-		parens(graph.num_vertices() + 1, -1)
+	:graph(g),
+	distances(graph.num_vertices() + 1, std::numeric_limits<double>::infinity()),
+	parens(graph.num_vertices() + 1, -1)
 	{}
 
 	template<typename Lable1, typename Lable2>
@@ -76,7 +76,7 @@ struct currency_arbitrage
 		auto s = graph.add_vertex("Source");
 
 		for (auto e : graph.edges())
-			graph.weight(e) = 1 / (std::log10(graph.weight(e)));
+			graph.weight(e) = -1 * (std::log10(graph.weight(e)));
 
 		for (auto v : graph.vertices())
 			if (v != s)
