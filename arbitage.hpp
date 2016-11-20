@@ -49,7 +49,7 @@ struct currency_arbitrage
 		check_negative_cycles(Lable1 distance, Lable2 color, Lable3 paren)
 	{
 		for (auto e : graph.edges())
-			if (distance(graph.target(e)) > distance(graph.source(e)) + graph.weight(e))
+			if (distance(graph.target(e)) < distance(graph.source(e)) + graph.weight(e))
 				return trace_cycle(graph.target(e), color, paren);
 		return std::vector<vertex>();
 	}
@@ -101,7 +101,7 @@ struct currency_arbitrage
 		else
 		{
 			std::cout << "There is no opportunity for arbitrage." << std::endl;
-			return std::vector<vertex>();
+			return cycle;
 		}
 
 
