@@ -7,15 +7,15 @@
 #include <limits>
 #include <cmath>
 
-template<typename G>
+template<typename G, typename T = int>
 struct BFSSP
 {
 	using vertex = origin::vertex_t;
 	using edge = origin::edge_t;
 
-	BFSSP(G& g, int s)
+	BFSSP(G& g, int s, T max = 1000000)
 	:graph(g),
-	distances(graph.num_vertices(), std::numeric_limits<double>::infinity()),
+	distances(graph.num_vertices(), max),
 	parents(graph.num_vertices(), -1),
     s(s)
 	{}

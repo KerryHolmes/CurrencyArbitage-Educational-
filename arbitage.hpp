@@ -15,7 +15,7 @@ struct currency_arbitrage
 
 	currency_arbitrage(G& g, T max = 1000000)
 	:graph(g),
-	distances(graph.num_vertices() + 1, max)),
+	distances(graph.num_vertices() + 1, max),
 	parens(graph.num_vertices() + 1, -1)
 	{}
 
