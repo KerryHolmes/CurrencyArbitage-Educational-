@@ -44,11 +44,11 @@ int main(int argc, char* argv[])
       std::getline(numbers,current);
       vertices[i] = moneyFlow.add_vertex(current);
       std::getline(numbers,current);
-      from_USD[i] = std::stod(current);
+      from_USD[i] = 1 / std::stod(current);
    }
 
    for(int i = 1; i < moneyFlow.num_vertices(); ++i)
-       moneyFlow.add_edge(vertices[0], vertices[i], from_USD[i]);
+       moneyFlow.add_edge(vertices[0], vertices[i], 1 / from_USD[i]);
 
    for(int i = 1; i < moneyFlow.num_vertices(); ++i)
    {
@@ -61,20 +61,20 @@ int main(int argc, char* argv[])
           }
       }
    }
-  /*
+ 
   graph copy(moneyFlow);
   origin::print_digraph<graph> print(std::cout, copy);
   print();
-  */
+
 
   currency_arbitrage<graph> bbff(moneyFlow);
   auto cycle = bbff();
 
   double principle = 1.00;
-  for(int i = 0; i < cycle.size()-1; ++i)
+  for(int i = 0; i < cycle.size(); ++i)
    {
        std::cout << principle << std::endl;
-       auto e = moneyFlow.edge(cycle[i], cycle[i+1]);
+       auto e = moneyFlow.edge(cycle[i], cycle[(i+1)%cycle.size()]);
        principle *= moneyFlow.weight(e); 
    }
    std::cout << principle << std::endl;
