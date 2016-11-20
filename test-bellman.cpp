@@ -69,6 +69,6 @@ int main(int argc, char* argv[])
   BFSSP<graph> bbff(moneyFlow);
   auto cycle = bbff();
 
-  origin::print_digraph<graph> print(std::cout, cycle);
-  print();
+  origin::print_digraph<graph> print_result(std::cout, cycle);
+  print_result();
 }

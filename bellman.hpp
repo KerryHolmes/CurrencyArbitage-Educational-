@@ -68,8 +68,8 @@ struct BFSSP
           return result;
        
         
-        for(auto v : graph.vertices())
-            result.add_vertex(graph.verts_(v);
+        for(auto v : graph.verts_)
+            result.add_vertex(v.data);
 
         for(auto v : graph.vertices())
            if(v != s)
