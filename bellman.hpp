@@ -45,9 +45,9 @@ struct BFSSP
 		}
 	}
 
-	template<typename Lable1, typename Lable2, typename Lable3>
+	template<typename Lable1, typename Lable2>
 	bool
-	check_negative_cycles(Lable1 distance, Lable2 color, Lable3 paren)
+	check_negative_cycles(Lable1 distance, Lable2 paren)
 	{
 		for (auto e : graph.edges())
 			if (distance(graph.target(e)) < distance(graph.source(e)) 
@@ -63,12 +63,12 @@ struct BFSSP
 		auto paren = origin::vertex_label(parens);
 
 		find_path(s, distance, paren);
-        if(check_negative_cycles())
-          return G();
+        if(check_negative_cycles(distance, paren))
+          return G;
         G result;
         
         for(auto v : graph.vertices())
-            result.add_vertex(v.data);
+            result.add_vertex(v);
 
         for(auto v : graph.vertices())
            if(v != s)

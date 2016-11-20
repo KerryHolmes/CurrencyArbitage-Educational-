@@ -93,6 +93,10 @@ struct digraph
   :verts_(G.verts_), edges_(G.edges_)
   {}
 
+  digraph(digraph G)
+  :verts_(G.verts_), edges_(G.edges_)
+  {}
+
   // Vertex list
   bool is_null() const;
   std::size_t num_vertices() const;
