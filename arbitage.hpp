@@ -65,7 +65,6 @@ struct currency_arbitrage
 			color(s) = 1;
 			s = paren(s);
 		}
-		cycle.push_back(s);
 		return cycle;
 	}
 
@@ -77,7 +76,7 @@ struct currency_arbitrage
 		auto s = graph.add_vertex("Source");
 
 		for (auto e : graph.edges())
-			graph.weight(e) = -1 * (std::log10(graph.weight(e)));
+			graph.weight(e) = 1 / (std::log10(graph.weight(e)));
 
 		for (auto v : graph.vertices())
 			if (v != s)
