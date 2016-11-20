@@ -13,12 +13,13 @@ using graph = origin::digraph<std::string,double>;
 using vertex = origin::vertex_t;
 using edge = origin::edge_t;
 
-std::srand(0);
+
 
 int main(int argc, char* argv[])
 {  
    //Open the file stream to read the exchange rates and currencies
    std::ifstream numbers("../excrates.txt");
+   std::srand(0);
 
    //This string is to hold the current line from the file as it is processed
    std::string current;
