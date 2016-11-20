@@ -4,7 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <random>
+#include <cstdlib>
 
 //These types are in their own namespace, here the using statement
 //is used to create aliases for these types to make the code 
@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
    int num_records = std::stoi(current);
    
    //Create the graph 
-   graph moneyFlow;
+   graph network;
 
    double path[num_records];
    vertex vertices[num_records];
@@ -38,21 +38,21 @@ int main(int argc, char* argv[])
    for(int i = 1; i <= num_records; ++i)
    {
       std::getline(numbers,current);
-      vertices[i] = moneyFlow.add_vertex(current);
+      vertices[i] = network.add_vertex(current);
    }
 
-   for(auto u : graph.verts_)
-      for(auto v : graph.verts_)
+   for(auto u : network.verts_)
+      for(auto v : network.verts_)
           if( u != v)
-            moneyFlow.add_edge(u, v, std::rand()%10);
+            network.add_edge(u, v, std::rand()%10);
  
-  origin::print_digraph<graph> print(std::cout, moneyFlow);
+  origin::print_digraph<graph> print(std::cout, network);
   print();
 
 
-  BFSSP<graph> bfsp(moneyFlow);
+  BFSSP<graph> bfsp(network, 1);
   auto SSP = bfsp();
 
-  origin::print_digraph<graph> print_result(std::cout, cycle);
+  origin::print_digraph<graph> print_result(std::cout, SSP);
   print_result();
 }
