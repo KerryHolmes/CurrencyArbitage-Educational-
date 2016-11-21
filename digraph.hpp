@@ -86,13 +86,16 @@ struct digraph
   using edge_set = std::vector<edge_type>;
   using edge_iterator = counted_iterator<edge_t>;
   using edge_range = counted_range<edge_t>;
-
+ 
+  //Constructor for empty graphs
   digraph() = default;
 
+  //Constructor to copy the aspects of one graph into another
   digraph(digraph& G)
   :verts_(G.verts_), edges_(G.edges_)
   {}
 
+  //Overload of the above constructor for a constant reference
   digraph(const digraph& G)
   :verts_(G.verts_), edges_(G.edges_)
   {}
