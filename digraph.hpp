@@ -127,6 +127,7 @@ struct digraph
   edge_iterator find_edge(vertex_t, vertex_t) const;
   bool has_edge(vertex_t, vertex_t) const;
   edge_t edge(vertex_t, vertex_t) const;
+  E edge(vertex_t u, vertex_t v);
 
   vertex_t source(edge_t) const;
   vertex_t target(edge_t) const;
@@ -309,6 +310,15 @@ digraph<V, E>::edge(vertex_t u, vertex_t v) const
 {
   assert(has_edge(u, v));
   return *find_edge(u, v);
+}
+
+// Assuming (u, v) exists, returns weight of that edge.
+template<typename V, typename E>
+E
+digraph<V, E>::edge(vertex_t u, vertex_t v) 
+{
+  assert(has_edge(u, v));
+  return weight(*find_edge(u, v));
 }
 
 // In the edge (u, v), returns u.

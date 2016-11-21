@@ -20,7 +20,7 @@ add_library(graph
 
 add_executable(network test-bellman.cpp)
 
-set(files bellman.hpp bellman.cpp dighraph.hpp test-bellman.cpp)
+set(files bellman.hpp bellman.cpp digraph.hpp test-bellman.cpp)
 
 add_custom_target(printout
   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
